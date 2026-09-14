@@ -9,20 +9,74 @@
         class="relative mx-auto w-full px-2 sm:px-6 lg:px-8"
     >
 
-        <!-- Connector layer -->
-        <svg
-            id="hierarchy-lines"
-            class="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-visible"
-            aria-hidden="true"
-        ></svg>
+```
+    <!-- Connector layer -->
+    <svg
+        id="hierarchy-lines"
+        class="pointer-events-none absolute left-0 top-0 z-0 h-full w-full overflow-visible"
+        aria-hidden="true"
+    ></svg>
 
 
-        <!-- PRESIDENT -->
+    <!-- PRESIDENT -->
+    <div
+        id="node-president"
+        class="relative z-10 flex justify-center"
+    >
+        {% with candidate=candidate_by_position.president %}
+            {% if candidate %}
+                <a
+                    href="{{ candidate.get_absolute_url }}"
+                    class="group block rounded-2xl outline-none"
+                    aria-label="View {{ candidate.name }}'s credentials and platforms"
+                >
+                    <div class="flex flex-col items-center">
+
+                        <div
+                            class="overflow-hidden rounded-full ring-4 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-lg group-focus-visible:ring-2 group-focus-visible:ring-[#8a5a36]"
+                        >
+                            <img
+                                src="{% static candidate.photo %}"
+                                alt="{{ candidate.name }}"
+                                class="h-24 w-24 object-cover sm:h-28 sm:w-28"
+                            >
+                        </div>
+
+                        <div
+                            class="mt-3 rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-3 py-2 text-center shadow-sm transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
+                        >
+                            <p class="break-words text-xs font-bold uppercase leading-tight text-[#3f2618] sm:text-sm">
+                                {{ candidate.name }}
+                            </p>
+
+                            <p class="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a5a36] sm:text-xs">
+                                {{ candidate.position }}
+                            </p>
+                        </div>
+
+                    </div>
+                </a>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+
+    <!-- PRESIDENT → VPs -->
+    <div class="h-10 sm:h-14"></div>
+
+
+    <!-- VPs -->
+    <div
+        id="node-vps"
+        class="relative z-10 grid grid-cols-2 gap-4 sm:gap-16"
+    >
+
+        <!-- VP INTERNAL -->
         <div
-            id="node-president"
-            class="relative z-10 flex justify-center"
+            id="node-vp-internal"
+            class="flex justify-center"
         >
-            {% with candidate=candidate_by_position.president %}
+            {% with candidate=candidate_by_position.vp_internal %}
                 {% if candidate %}
                     <a
                         href="{{ candidate.get_absolute_url }}"
@@ -32,23 +86,23 @@
                         <div class="flex flex-col items-center">
 
                             <div
-                                class="overflow-hidden rounded-full ring-4 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-lg group-focus-visible:ring-2 group-focus-visible:ring-[#8a5a36]"
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md"
                             >
                                 <img
                                     src="{% static candidate.photo %}"
                                     alt="{{ candidate.name }}"
-                                    class="h-24 w-24 object-cover sm:h-28 sm:w-28"
+                                    class="h-20 w-20 object-cover sm:h-24 sm:w-24"
                                 >
                             </div>
 
                             <div
-                                class="mt-3 rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-3 py-2 text-center shadow-sm transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
+                                class="mt-2 max-w-[150px] rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-2 py-2 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
                             >
-                                <p class="break-words text-xs font-bold uppercase leading-tight text-[#3f2618] sm:text-sm">
+                                <p class="break-words text-[10px] font-bold uppercase leading-tight text-[#3f2618] sm:text-xs">
                                     {{ candidate.name }}
                                 </p>
 
-                                <p class="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#8a5a36] sm:text-xs">
+                                <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
                                     {{ candidate.position }}
                                 </p>
                             </div>
@@ -60,581 +114,486 @@
         </div>
 
 
-        <!-- PRESIDENT → VPs -->
-        <div class="h-10 sm:h-14"></div>
-
-
-        <!-- VPs -->
+        <!-- VP EXTERNAL -->
         <div
-            id="node-vps"
-            class="relative z-10 grid grid-cols-2 gap-4 sm:gap-16"
+            id="node-vp-external"
+            class="flex justify-center"
         >
+            {% with candidate=candidate_by_position.vp_external %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-2xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
 
-            <!-- VP INTERNAL -->
-            <div
-                id="node-vp-internal"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.vp_internal %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-2xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md"
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-20 w-20 object-cover sm:h-24 sm:w-24"
                                 >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-20 w-20 object-cover sm:h-24 sm:w-24"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[150px] rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-2 py-2 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
-                                >
-                                    <p class="break-words text-[10px] font-bold uppercase leading-tight text-[#3f2618] sm:text-xs">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
                             </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
 
+                            <div
+                                class="mt-2 max-w-[150px] rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-2 py-2 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
+                            >
+                                <p class="break-words text-[10px] font-bold uppercase leading-tight text-[#3f2618] sm:text-xs">
+                                    {{ candidate.name }}
+                                </p>
 
-            <!-- VP EXTERNAL -->
-            <div
-                id="node-vp-external"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.vp_external %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-2xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-20 w-20 object-cover sm:h-24 sm:w-24"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[150px] rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-2 py-2 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
-                                >
-                                    <p class="break-words text-[10px] font-bold uppercase leading-tight text-[#3f2618] sm:text-xs">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
+                                <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
+                                    {{ candidate.position }}
+                                </p>
                             </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
 
-        </div>
-
-
-        <!-- VPs → Main officers -->
-        <div class="h-10 sm:h-14"></div>
-
-
-        <!-- MAIN OFFICERS -->
-        <div
-            id="node-main-officers"
-            class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
-        >
-
-            <!-- SECRETARY -->
-            <div
-                id="node-secretary"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.secretary %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- TREASURER -->
-            <div
-                id="node-treasurer"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.treasurer %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- AUDITOR -->
-            <div
-                id="node-auditor"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.auditor %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-        </div>
-
-
-        <!-- SECRETARY / TREASURER / AUDITOR → SUB-OFFICERS -->
-        <div class="h-10 sm:h-14"></div>
-
-
-        <div
-            id="node-sub-officers"
-            class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
-        >
-
-            <!-- ASSISTANT SECRETARY -->
-            <div
-                id="node-assistant-secretary"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.assistant_secretary %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- PROJECT MANAGER -->
-            <div
-                id="node-project-manager"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.project_manager %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- ASSISTANT AUDITOR -->
-            <div
-                id="node-assistant-auditor"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.assistant_auditor %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-        </div>
-
-
-        <!-- TREASURER → PM / PRO / ECO -->
-        <div class="h-10 sm:h-14"></div>
-
-
-        <div
-            id="node-treasurer-team"
-            class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
-        >
-
-            <!-- PROJECT MANAGER -->
-            <div
-                id="node-project-manager"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.project_manager %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- PRO -->
-            <div
-                id="node-pro"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.pro %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- ECO WARRIOR -->
-            <div
-                id="node-eco-warrior"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.eco_warrior %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-        </div>
-
-
-        <!-- PRO → REPRESENTATIVE -->
-        <div class="h-10 sm:h-14"></div>
-
-
-        <div
-            id="node-representative"
-            class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
-        >
-
-            <div></div>
-
-            <div class="flex justify-center">
-                {% with candidate=candidate_by_position.representative %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[120px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[170px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-            <div></div>
-
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
         </div>
 
     </div>
-</div>
 
+
+    <!-- VPs → Main officers -->
+    <div class="h-10 sm:h-14"></div>
+
+
+    <!-- MAIN OFFICERS -->
+    <div
+        id="node-main-officers"
+        class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
+    >
+
+        <!-- SECRETARY -->
+        <div
+            id="node-secretary"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.secretary %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        <!-- TREASURER -->
+        <div
+            id="node-treasurer"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.treasurer %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        <!-- AUDITOR -->
+        <div
+            id="node-auditor"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.auditor %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+    </div>
+
+
+    <!-- SECRETARY / TREASURER / AUDITOR → SUB-OFFICERS -->
+    <div class="h-10 sm:h-14"></div>
+
+
+    <div
+        id="node-sub-officers"
+        class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
+    >
+
+        <!-- ASSISTANT SECRETARY -->
+        <div
+            id="node-assistant-secretary"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.assistant_secretary %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        <!-- ASSISTANT AUDITOR -->
+        <div
+            id="node-assistant-auditor"
+            class="col-start-3 flex justify-center"
+        >
+            {% with candidate=candidate_by_position.assistant_auditor %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+    </div>
+
+
+    <!-- TREASURER → PM / PRO / ECO -->
+    <div class="h-10 sm:h-14"></div>
+
+
+    <div
+        id="node-treasurer-team"
+        class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
+    >
+
+        <!-- PROJECT MANAGER -->
+        <div
+            id="node-project-manager-team"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.project_manager %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        <!-- PRO -->
+        <div
+            id="node-pro"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.pro %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
+        <!-- ECO WARRIOR -->
+        <div
+            id="node-eco-warrior"
+            class="flex justify-center"
+        >
+            {% with candidate=candidate_by_position.eco_warrior %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+    </div>
+
+
+    <!-- PRO → REPRESENTATIVE -->
+    <div class="h-10 sm:h-14"></div>
+
+
+    <div
+        id="node-representative"
+        class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
+    >
+
+        <div></div>
+
+        <div class="flex justify-center">
+            {% with candidate=candidate_by_position.representative %}
+                {% if candidate %}
+                    <a
+                        href="{{ candidate.get_absolute_url }}"
+                        class="group block rounded-xl outline-none"
+                        aria-label="View {{ candidate.name }}'s credentials and platforms"
+                    >
+                        <div class="flex flex-col items-center">
+
+                            <div
+                                class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                            >
+                                <img
+                                    src="{% static candidate.photo %}"
+                                    alt="{{ candidate.name }}"
+                                    class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                >
+                            </div>
+
+                            <div
+                                class="mt-2 max-w-[120px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[170px] sm:px-2 sm:py-2"
+                            >
+                                <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                    {{ candidate.name }}
+                                </p>
+
+                                <p class="mt-1 text-[7px] font-semibold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-[9px]">
+                                    {{ candidate.position }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div></div>
+
+    </div>
+
+</div>
+```
+
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -766,21 +725,6 @@
 
             addConnector(
                 "node-vp-internal",
-                "node-auditor"
-            );
-
-            addConnector(
-                "node-vp-external",
-                "node-secretary"
-            );
-
-            addConnector(
-                "node-vp-external",
-                "node-treasurer"
-            );
-
-            addConnector(
-                "node-vp-external",
                 "node-auditor"
             );
 
