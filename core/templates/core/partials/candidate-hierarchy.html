@@ -175,7 +175,12 @@
         <!-- PRESIDENT DIRECT REPORT — 2ND YEAR REPRESENTATIVE -->
         <!-- ========================================================= -->
 
-        <div class="h-10 sm:h-14"></div>
+        <!--
+            Tighter gap on mobile so the rep card sits closer to PRO —
+            reduces how far the connector has to travel and keeps it
+            from reading as "disconnected" on small screens.
+        -->
+        <div class="h-6 sm:h-14"></div>
 
         <div
             id="node-representative"
@@ -239,6 +244,15 @@ document.addEventListener("DOMContentLoaded", () => {
             mobile: 0.5,
         },
 
+        // Auditor → Assistant Auditor connector ONLY.
+        // Extra px the line pushes PAST each node's edge (into the
+        // card) on both ends, making this specific connector visibly
+        // longer than the Secretary → Assistant Secretary one.
+        auditorAssistantExtension: {
+            desktop: 10,
+            mobile: 14,
+        },
+
         // Secretary/Treasurer/Auditor line → Project/PRO/Eco line.
         // How far ABOVE the Project/PRO/Eco row the shared branch
         // line sits, capped at this many px above that row.
@@ -260,6 +274,16 @@ document.addEventListener("DOMContentLoaded", () => {
         representativeFraction: {
             desktop: 0.5,
             mobile: 0.5,
+        },
+
+        // PRO → 2nd Year Representative connector.
+        // Extra px the line pushes PAST each node's edge (into the
+        // card) so the connector reads as longer/more connected, and
+        // so tiny layout shifts (e.g. avatar images finishing load on
+        // mobile) never leave a visible gap.
+        representativeOverlap: {
+            desktop: 4,
+            mobile: 14,
         },
     };
 
@@ -559,7 +583,14 @@ document.addEventListener("DOMContentLoaded", () => {
          * =========================================================
          * AUDITOR → ASSISTANT AUDITOR
          * =========================================================
+         *
+         * Same elbow pattern as Secretary → Assistant Secretary,
+         * but extended past each node's edge by
+         * auditorAssistantExtension so this connector reads as
+         * longer than its Secretary counterpart.
          */
+
+        const auditorExtension = cfg("auditorAssistantExtension");
 
         const auditorAssistantY =
             auditor.bottom +
@@ -568,7 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
         svg.appendChild(
             line(
                 auditor.centerX,
-                auditor.bottom,
+                auditor.bottom - auditorExtension,
                 auditor.centerX,
                 auditorAssistantY
             )
@@ -588,7 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 assistantAuditor.centerX,
                 auditorAssistantY,
                 assistantAuditor.centerX,
-                assistantAuditor.top
+                assistantAuditor.top + auditorExtension
             )
         );
 
@@ -745,11 +776,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /*
          * =========================================================
-         * 2ND YEAR REPRESENTATIVE → PRO
+         * PRO → 2ND YEAR REPRESENTATIVE
          * =========================================================
+         *
+         * Vertical drop from PRO down to the representative, with
+         * a short horizontal jog (collapses to nothing if both are
+         * already centered on the same x). The line is nudged a
+         * few px PAST each node's edge (representativeOverlap) so
+         * it visually reads as longer/more connected, and so a
+         * late-loading avatar image shifting layout slightly never
+         * leaves a visible gap.
          */
 
         if (representative) {
+            const overlap = cfg("representativeOverlap");
+
             const representativeY =
                 pro.bottom +
                 (representative.top - pro.bottom) * cfg("representativeFraction");
@@ -757,7 +798,7 @@ document.addEventListener("DOMContentLoaded", () => {
             svg.appendChild(
                 line(
                     pro.centerX,
-                    pro.bottom,
+                    pro.bottom - overlap,
                     pro.centerX,
                     representativeY
                 )
@@ -777,7 +818,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     representative.centerX,
                     representativeY,
                     representative.centerX,
-                    representative.top
+                    representative.top + overlap
                 )
             );
         }
@@ -797,6 +838,12 @@ document.addEventListener("DOMContentLoaded", () => {
      *   immediately and once after a short delay.
      * - ResizeObserver covers container size changes that aren't
      *   tied to the window itself (e.g. sidebar toggles).
+     * - Candidate avatar images can finish loading (and reflow
+     *   their card's height) AFTER DOMContentLoaded, especially
+     *   on slower mobile connections. Redrawing on window "load"
+     *   (and once more shortly after) catches that shift so the
+     *   PRO → Representative line doesn't end up drawn to a stale,
+     *   now-incorrect position.
      */
 
     let redrawTimeout = null;
@@ -820,6 +867,11 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         { passive: true }
     );
+
+    window.addEventListener("load", () => {
+        requestAnimationFrame(draw);
+        setTimeout(() => requestAnimationFrame(draw), 300);
+    });
 
     if (window.ResizeObserver) {
         const observer = new ResizeObserver(redraw);
