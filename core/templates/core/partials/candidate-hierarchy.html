@@ -290,8 +290,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         /*
+         * =========================================================
          * PRESIDENT → VP CONNECTOR
+         * =========================================================
          */
+
         const presidentBottom = president.bottom;
 
         const vpTop = Math.min(
@@ -303,6 +306,10 @@ document.addEventListener("DOMContentLoaded", () => {
             presidentBottom +
             (vpTop - presidentBottom) / 2;
 
+        /*
+         * President → VP horizontal line
+         */
+
         svg.appendChild(
             line(
                 president.centerX,
@@ -313,8 +320,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * VP HORIZONTAL CONNECTOR
+         * VP horizontal connector
          */
+
         svg.appendChild(
             line(
                 vpInternal.centerX,
@@ -325,8 +333,37 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * VP → CORE OFFICERS
+         * VP Internal → VP horizontal line
          */
+
+        svg.appendChild(
+            line(
+                vpInternal.centerX,
+                presidentVpY,
+                vpInternal.centerX,
+                vpInternal.top
+            )
+        );
+
+        /*
+         * VP External → VP horizontal line
+         */
+
+        svg.appendChild(
+            line(
+                vpExternal.centerX,
+                presidentVpY,
+                vpExternal.centerX,
+                vpExternal.top
+            )
+        );
+
+        /*
+         * =========================================================
+         * VP → CORE OFFICERS
+         * =========================================================
+         */
+
         const coreTop = Math.min(
             secretary.top,
             treasurer.top,
@@ -345,6 +382,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 coreBranchY
             )
         );
+
+        /*
+         * SECRETARY / TREASURER / AUDITOR
+         *
+         * Shared horizontal line.
+         */
 
         svg.appendChild(
             line(
@@ -383,8 +426,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
+         * =========================================================
          * SECRETARY → ASSISTANT SECRETARY
+         * =========================================================
          */
+
         const secretaryAssistantY =
             secretary.bottom +
             (assistantSecretary.top - secretary.bottom) / 2;
@@ -417,8 +463,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
+         * =========================================================
          * AUDITOR → ASSISTANT AUDITOR
+         * =========================================================
          */
+
         const auditorAssistantY =
             auditor.bottom +
             (assistantAuditor.top - auditor.bottom) / 2;
@@ -451,13 +500,15 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * PROJECT MANAGER + PRO + ECO WARRIOR
+         * =========================================================
+         * VP LINE → PROJECT / PRO / ECO
+         * =========================================================
          *
-         * These three are peers.
-         *
-         * Their shared horizontal connector remains
-         * exactly on their existing row.
+         * Two vertical branches descend from the VP horizontal
+         * line and connect directly to the Project / PRO / Eco
+         * horizontal connector.
          */
+
         const coordinationTop = Math.min(
             projectManager.top,
             pro.top,
@@ -465,29 +516,98 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         const coordinationBranchY =
-            coordinationTop - 14;
-
-        const coordinationLeft =
-            projectManager.centerX;
-
-        const coordinationRight =
-            ecoWarrior.centerX;
+            coordinationTop -
+            Math.min(
+                24,
+                (coordinationTop - presidentVpY) / 2
+            );
 
         /*
-         * Shared PM / PRO / ECO horizontal connector.
+         * Center between the two VP cards.
          */
+
+        const vpCenterX =
+            (vpInternal.centerX + vpExternal.centerX) / 2;
+
+        /*
+         * Distance between the two VP cards.
+         */
+
+        const vpDistance =
+            vpExternal.centerX - vpInternal.centerX;
+
+        /*
+         * Keep the two vertical branches closer together.
+         */
+
+        const branchOffset =
+            vpDistance * 0.30;
+
+        const leftBranchX =
+            vpCenterX - branchOffset;
+
+        const rightBranchX =
+            vpCenterX + branchOffset;
+
+        /*
+         * =========================================================
+         * LEFT VERTICAL BRANCH
+         * =========================================================
+         *
+         * Starts from the VP horizontal connector and continues
+         * all the way down to the Project / PRO / Eco horizontal
+         * connector.
+         */
+
         svg.appendChild(
             line(
-                coordinationLeft,
-                coordinationBranchY,
-                coordinationRight,
+                leftBranchX,
+                presidentVpY,
+                leftBranchX,
                 coordinationBranchY
             )
         );
 
         /*
-         * PROJECT MANAGER → shared line
+         * =========================================================
+         * RIGHT VERTICAL BRANCH
+         * =========================================================
+         *
+         * Starts from the VP horizontal connector and continues
+         * all the way down to the Project / PRO / Eco horizontal
+         * connector.
          */
+
+        svg.appendChild(
+            line(
+                rightBranchX,
+                presidentVpY,
+                rightBranchX,
+                coordinationBranchY
+            )
+        );
+
+        /*
+         * =========================================================
+         * PROJECT / PRO / ECO HORIZONTAL CONNECTOR
+         * =========================================================
+         *
+         * Both vertical branches terminate directly on this line.
+         */
+
+        svg.appendChild(
+            line(
+                projectManager.centerX,
+                coordinationBranchY,
+                ecoWarrior.centerX,
+                coordinationBranchY
+            )
+        );
+
+        /*
+         * PROJECT MANAGER → shared horizontal line
+         */
+
         svg.appendChild(
             line(
                 projectManager.centerX,
@@ -498,8 +618,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * PRO → shared line
+         * PRO → shared horizontal line
          */
+
         svg.appendChild(
             line(
                 pro.centerX,
@@ -510,8 +631,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * ECO WARRIOR → shared line
+         * ECO WARRIOR → shared horizontal line
          */
+
         svg.appendChild(
             line(
                 ecoWarrior.centerX,
@@ -522,38 +644,11 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * PM / PRO / ECO → BOTH VPS
-         *
-         * The shared coordination line branches upward
-         * to both sides of the VP connector.
-         *
-         * Left branch → VP Internal
-         * Right branch → VP External
-         */
-        const leftBranchX = vpInternal.centerX;
-        const rightBranchX = vpExternal.centerX;
-
-        svg.appendChild(
-            line(
-                leftBranchX,
-                presidentVpY,
-                leftBranchX,
-                coordinationBranchY
-            )
-        );
-
-        svg.appendChild(
-            line(
-                rightBranchX,
-                presidentVpY,
-                rightBranchX,
-                coordinationBranchY
-            )
-        );
-
-        /*
+         * =========================================================
          * 2ND YEAR REPRESENTATIVE → PRO
+         * =========================================================
          */
+
         if (representative) {
             const representativeY =
                 pro.bottom +
