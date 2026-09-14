@@ -1,4 +1,4 @@
-﻿Django
+Django
 django-tailwind
 dj-database-url
 psycopg[binary]
