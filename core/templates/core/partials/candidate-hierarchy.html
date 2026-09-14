@@ -17,915 +17,588 @@
         ></svg>
 
 
+        <!-- ========================================================= -->
         <!-- PRESIDENT -->
+        <!-- ========================================================= -->
+
         <div
             id="node-president"
             class="relative z-10 flex justify-center"
         >
             {% with candidate=candidate_by_position.president %}
-                {% if candidate %}
-                    <a
-                        href="{{ candidate.get_absolute_url }}"
-                        class="group block rounded-2xl outline-none"
-                        aria-label="View {{ candidate.name }}'s credentials and platforms"
-                    >
-                        <div class="flex flex-col items-center">
-
-                            <div
-                                class="overflow-hidden rounded-full ring-4 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-lg group-focus-visible:ring-2 group-focus-visible:ring-[#8a5a36]"
-                            >
-                                <img
-                                    src="{% static candidate.photo %}"
-                                    alt="{{ candidate.name }}"
-                                    class="h-24 w-24 object-cover sm:h-28 sm:w-28"
-                                >
-                            </div>
-
-                            <div
-                                class="mt-3 rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-3 py-2 text-center shadow-sm transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
-                            >
-                                <p class="break-words text-xs font-bold uppercase leading-tight text-[#3f2618] sm:text-sm">
-                                    {{ candidate.name }}
-                                </p>
-
-                                <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                    {{ candidate.position }}
-                                </p>
-                            </div>
-
-                        </div>
-                    </a>
-                {% endif %}
+                {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate link_radius="rounded-2xl" ring_class="ring-4 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-lg group-focus-visible:ring-2 group-focus-visible:ring-[#8a5a36]" img_size="h-24 w-24 object-cover sm:h-28 sm:w-28" card_margin="mt-3" card_radius="rounded-xl" card_max_width="" card_padding="px-3 py-2" name_size="text-xs sm:text-sm" %}
             {% endwith %}
         </div>
 
 
-        <!-- PRESIDENT → VPs -->
+        <!-- ========================================================= -->
+        <!-- DIRECT PRESIDENT REPORTS — VPs -->
+        <!-- ========================================================= -->
+
         <div class="h-10 sm:h-14"></div>
 
-
-        <!-- VPs -->
         <div
             id="node-vps"
             class="relative z-10 grid grid-cols-2 gap-4 sm:gap-16"
         >
-
-            <!-- VP INTERNAL -->
             <div
                 id="node-vp-internal"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.vp_internal %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-2xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-20 w-20 object-cover sm:h-24 sm:w-24"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[150px] rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-2 py-2 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
-                                >
-                                    <p class="break-words text-[10px] font-bold uppercase leading-tight text-[#3f2618] sm:text-xs">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate link_radius="rounded-2xl" ring_class="ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md" img_size="h-20 w-20 object-cover sm:h-24 sm:w-24" card_margin="mt-2" card_radius="rounded-xl" card_max_width="max-w-[150px]" card_padding="px-2 py-2" name_size="text-[10px] sm:text-xs" %}
                 {% endwith %}
             </div>
 
-
-            <!-- VP EXTERNAL -->
             <div
                 id="node-vp-external"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.vp_external %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-2xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-20 w-20 object-cover sm:h-24 sm:w-24"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[150px] rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-2 py-2 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8]"
-                                >
-                                    <p class="break-words text-[10px] font-bold uppercase leading-tight text-[#3f2618] sm:text-xs">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate link_radius="rounded-2xl" ring_class="ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e] group-hover:shadow-md" img_size="h-20 w-20 object-cover sm:h-24 sm:w-24" card_margin="mt-2" card_radius="rounded-xl" card_max_width="max-w-[150px]" card_padding="px-2 py-2" name_size="text-[10px] sm:text-xs" %}
                 {% endwith %}
             </div>
-
         </div>
 
 
-        <!-- VPs → Main officers -->
+        <!-- ========================================================= -->
+        <!-- PRESIDENT DIRECT REPORTS — SECRETARY / TREASURER / AUDITOR -->
+        <!-- ========================================================= -->
+
         <div class="h-10 sm:h-14"></div>
 
-
-        <!-- MAIN OFFICERS -->
         <div
-            id="node-main-officers"
+            id="node-core-officers"
             class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
         >
-
-            <!-- SECRETARY -->
             <div
                 id="node-secretary"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.secretary %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
 
-
-            <!-- TREASURER -->
             <div
                 id="node-treasurer"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.treasurer %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
 
-
-            <!-- AUDITOR -->
             <div
                 id="node-auditor"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.auditor %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
-
         </div>
 
 
-        <!-- SECRETARY / AUDITOR → SUB-OFFICERS (TREASURER passes through) -->
+        <!-- ========================================================= -->
+        <!-- ASSISTANTS -->
+        <!-- ========================================================= -->
+
         <div class="h-10 sm:h-14"></div>
 
-
         <div
-            id="node-sub-officers"
+            id="node-assistants"
             class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
         >
-
-            <!-- ASSISTANT SECRETARY -->
             <div
                 id="node-assistant-secretary"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.assistant_secretary %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
 
-
             <div></div>
 
-
-            <!-- ASSISTANT AUDITOR -->
             <div
                 id="node-assistant-auditor"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.assistant_auditor %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
-
         </div>
 
 
-        <!-- TREASURER → PM / PRO / ECO -->
+        <!-- ========================================================= -->
+        <!-- PRESIDENT DIRECT REPORTS — PROJECT / P.R.O. / ECO -->
+        <!-- ========================================================= -->
+
         <div class="h-10 sm:h-14"></div>
 
-
         <div
-            id="node-treasurer-team"
+            id="node-coordination"
             class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
         >
-
-            <!-- PROJECT MANAGER -->
             <div
-                id="node-project-manager-team"
+                id="node-project-manager"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.project_manager %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
 
-
-            <!-- PRO -->
             <div
                 id="node-pro"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.pro %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
 
-
-            <!-- ECO WARRIOR -->
             <div
                 id="node-eco-warrior"
                 class="flex justify-center"
             >
                 {% with candidate=candidate_by_position.eco_warrior %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[105px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[150px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
+                    {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate %}
                 {% endwith %}
             </div>
-
         </div>
 
 
-        <!-- PM / PRO / ECO → YEAR REPRESENTATIVES -->
+        <!-- ========================================================= -->
+        <!-- PRESIDENT DIRECT REPORT — 2ND YEAR REPRESENTATIVE -->
+        <!-- ========================================================= -->
+
         <div class="h-10 sm:h-14"></div>
 
-
         <div
-            id="node-representatives"
-            class="relative z-10 grid grid-cols-4 gap-2 sm:gap-6"
+            id="node-representative"
+            class="relative z-10 flex justify-center"
         >
-
-            <!-- 1ST YEAR REPRESENTATIVE -->
-            <div
-                id="node-representative-1st"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.representative_1st_year %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- 2ND YEAR REPRESENTATIVE -->
-            <div
-                id="node-representative-2nd"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.representative_2nd_year %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- 3RD YEAR REPRESENTATIVE -->
-            <div
-                id="node-representative-3rd"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.representative_3rd_year %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
-
-            <!-- 4TH YEAR REPRESENTATIVE -->
-            <div
-                id="node-representative-4th"
-                class="flex justify-center"
-            >
-                {% with candidate=candidate_by_position.representative_4th_year %}
-                    {% if candidate %}
-                        <a
-                            href="{{ candidate.get_absolute_url }}"
-                            class="group block rounded-xl outline-none"
-                            aria-label="View {{ candidate.name }}'s credentials and platforms"
-                        >
-                            <div class="flex flex-col items-center">
-
-                                <div
-                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
-                                >
-                                    <img
-                                        src="{% static candidate.photo %}"
-                                        alt="{{ candidate.name }}"
-                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                                    >
-                                </div>
-
-                                <div
-                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
-                                >
-                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
-                                        {{ candidate.name }}
-                                    </p>
-
-                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
-                                        {{ candidate.position }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endwith %}
-            </div>
-
+            {% with candidate=candidate_by_position.representative %}
+                {% include "core/partials/_hierarchy_candidate.html" with candidate=candidate card_max_width="max-w-[120px] sm:max-w-[170px]" %}
+            {% endwith %}
         </div>
 
     </div>
 </div>
 
-
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const canvas = document.getElementById("hierarchy-canvas");
-        const svg = document.getElementById("hierarchy-lines");
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.getElementById("hierarchy-canvas");
+    const svg = document.getElementById("hierarchy-lines");
 
-        if (!canvas || !svg) {
+    if (!canvas || !svg) return;
+
+    const getBox = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return null;
+
+        const canvasRect = canvas.getBoundingClientRect();
+        const rect = el.getBoundingClientRect();
+
+        return {
+            left: rect.left - canvasRect.left,
+            right: rect.right - canvasRect.left,
+            top: rect.top - canvasRect.top,
+            bottom: rect.bottom - canvasRect.top,
+            centerX: rect.left - canvasRect.left + rect.width / 2,
+            centerY: rect.top - canvasRect.top + rect.height / 2,
+        };
+    };
+
+    const line = (x1, y1, x2, y2) => {
+        const el = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "line"
+        );
+
+        el.setAttribute("x1", x1);
+        el.setAttribute("y1", y1);
+        el.setAttribute("x2", x2);
+        el.setAttribute("y2", y2);
+        el.setAttribute("stroke", "#c9a77e");
+        el.setAttribute("stroke-width", "2");
+        el.setAttribute("stroke-linecap", "round");
+
+        return el;
+    };
+
+    const draw = () => {
+        const canvasRect = canvas.getBoundingClientRect();
+
+        svg.setAttribute("width", canvasRect.width);
+        svg.setAttribute("height", canvasRect.height);
+        svg.setAttribute(
+            "viewBox",
+            `0 0 ${canvasRect.width} ${canvasRect.height}`
+        );
+
+        svg.innerHTML = "";
+
+        const president = getBox("node-president");
+
+        const vpInternal = getBox("node-vp-internal");
+        const vpExternal = getBox("node-vp-external");
+
+        const secretary = getBox("node-secretary");
+        const treasurer = getBox("node-treasurer");
+        const auditor = getBox("node-auditor");
+
+        const assistantSecretary = getBox(
+            "node-assistant-secretary"
+        );
+
+        const assistantAuditor = getBox(
+            "node-assistant-auditor"
+        );
+
+        const projectManager = getBox(
+            "node-project-manager"
+        );
+
+        const pro = getBox("node-pro");
+
+        const ecoWarrior = getBox(
+            "node-eco-warrior"
+        );
+
+        const representative = getBox(
+            "node-representative"
+        );
+
+        if (
+            !president ||
+            !vpInternal ||
+            !vpExternal ||
+            !secretary ||
+            !treasurer ||
+            !auditor ||
+            !assistantSecretary ||
+            !assistantAuditor ||
+            !projectManager ||
+            !pro ||
+            !ecoWarrior
+        ) {
             return;
         }
 
-        function getCenter(element) {
-            const canvasRect = canvas.getBoundingClientRect();
-            const rect = element.getBoundingClientRect();
+        /*
+         * PRESIDENT → VP CONNECTOR
+         */
+        const presidentBottom = president.bottom;
 
-            return {
-                x: rect.left - canvasRect.left + rect.width / 2,
-                y: rect.top - canvasRect.top + rect.height / 2,
-                top: rect.top - canvasRect.top,
-                bottom: rect.bottom - canvasRect.top,
-            };
-        }
-
-        function createPath(points) {
-            const start = points[0];
-            const end = points[points.length - 1];
-
-            if (points.length === 2) {
-                const middleY = (start.y + end.y) / 2;
-
-                return `
-                    M ${start.x} ${start.y}
-                    L ${start.x} ${middleY}
-                    L ${end.x} ${middleY}
-                    L ${end.x} ${end.y}
-                `;
-            }
-
-            let path = `M ${start.x} ${start.y}`;
-
-            for (let i = 1; i < points.length; i++) {
-                const current = points[i];
-                const previous = points[i - 1];
-
-                if (previous.x === current.x) {
-                    path += ` L ${current.x} ${current.y}`;
-                    continue;
-                }
-
-                const middleY = (previous.y + current.y) / 2;
-
-                path += `
-                    L ${previous.x} ${middleY}
-                    L ${current.x} ${middleY}
-                    L ${current.x} ${current.y}
-                `;
-            }
-
-            return path;
-        }
-
-        function addConnector(sourceId, targetId) {
-            const source = document.getElementById(sourceId);
-            const target = document.getElementById(targetId);
-
-            if (!source || !target) {
-                return;
-            }
-
-            const sourcePoint = getCenter(source);
-            const targetPoint = getCenter(target);
-
-            const path = document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "path"
-            );
-
-            path.setAttribute(
-                "d",
-                createPath([
-                    {
-                        x: sourcePoint.x,
-                        y: sourcePoint.bottom,
-                    },
-                    {
-                        x: targetPoint.x,
-                        y: targetPoint.top,
-                    },
-                ])
-            );
-
-            path.setAttribute("fill", "none");
-            path.setAttribute("stroke", "#c9b093");
-            path.setAttribute("stroke-width", "2");
-            path.setAttribute("stroke-linecap", "round");
-            path.setAttribute("stroke-linejoin", "round");
-
-            svg.appendChild(path);
-        }
-
-        function drawLines() {
-            svg.innerHTML = "";
-
-            const width = canvas.clientWidth;
-            const height = canvas.scrollHeight;
-
-            svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
-            svg.setAttribute("width", width);
-            svg.setAttribute("height", height);
-
-            addConnector(
-                "node-president",
-                "node-vp-internal"
-            );
-
-            addConnector(
-                "node-president",
-                "node-vp-external"
-            );
-
-            addConnector(
-                "node-vp-internal",
-                "node-secretary"
-            );
-
-            addConnector(
-                "node-vp-internal",
-                "node-treasurer"
-            );
-
-            addConnector(
-                "node-vp-internal",
-                "node-auditor"
-            );
-
-            addConnector(
-                "node-vp-external",
-                "node-secretary"
-            );
-
-            addConnector(
-                "node-vp-external",
-                "node-treasurer"
-            );
-
-            addConnector(
-                "node-vp-external",
-                "node-auditor"
-            );
-
-            addConnector(
-                "node-secretary",
-                "node-assistant-secretary"
-            );
-
-            addConnector(
-                "node-auditor",
-                "node-assistant-auditor"
-            );
-
-            addConnector(
-                "node-treasurer",
-                "node-project-manager-team"
-            );
-
-            addConnector(
-                "node-treasurer",
-                "node-pro"
-            );
-
-            addConnector(
-                "node-treasurer",
-                "node-eco-warrior"
-            );
-
-            addConnector(
-                "node-pro",
-                "node-representative-1st"
-            );
-
-            addConnector(
-                "node-pro",
-                "node-representative-2nd"
-            );
-
-            addConnector(
-                "node-pro",
-                "node-representative-3rd"
-            );
-
-            addConnector(
-                "node-pro",
-                "node-representative-4th"
-            );
-        }
-
-        drawLines();
-
-        window.addEventListener(
-            "resize",
-            function () {
-                requestAnimationFrame(drawLines);
-            }
+        const vpTop = Math.min(
+            vpInternal.top,
+            vpExternal.top
         );
-    });
+
+        const presidentVpY =
+            presidentBottom +
+            (vpTop - presidentBottom) / 2;
+
+        svg.appendChild(
+            line(
+                president.centerX,
+                president.bottom,
+                president.centerX,
+                presidentVpY
+            )
+        );
+
+        /*
+         * VP HORIZONTAL CONNECTOR
+         */
+        svg.appendChild(
+            line(
+                vpInternal.centerX,
+                presidentVpY,
+                vpExternal.centerX,
+                presidentVpY
+            )
+        );
+
+        /*
+         * VP → CORE OFFICERS
+         */
+        const coreTop = Math.min(
+            secretary.top,
+            treasurer.top,
+            auditor.top
+        );
+
+        const coreBranchY =
+            presidentVpY +
+            (coreTop - presidentVpY) / 2;
+
+        svg.appendChild(
+            line(
+                president.centerX,
+                presidentVpY,
+                president.centerX,
+                coreBranchY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                secretary.centerX,
+                coreBranchY,
+                auditor.centerX,
+                coreBranchY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                secretary.centerX,
+                coreBranchY,
+                secretary.centerX,
+                secretary.top
+            )
+        );
+
+        svg.appendChild(
+            line(
+                treasurer.centerX,
+                coreBranchY,
+                treasurer.centerX,
+                treasurer.top
+            )
+        );
+
+        svg.appendChild(
+            line(
+                auditor.centerX,
+                coreBranchY,
+                auditor.centerX,
+                auditor.top
+            )
+        );
+
+        /*
+         * SECRETARY → ASSISTANT SECRETARY
+         */
+        const secretaryAssistantY =
+            secretary.bottom +
+            (assistantSecretary.top - secretary.bottom) / 2;
+
+        svg.appendChild(
+            line(
+                secretary.centerX,
+                secretary.bottom,
+                secretary.centerX,
+                secretaryAssistantY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                secretary.centerX,
+                secretaryAssistantY,
+                assistantSecretary.centerX,
+                secretaryAssistantY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                assistantSecretary.centerX,
+                secretaryAssistantY,
+                assistantSecretary.centerX,
+                assistantSecretary.top
+            )
+        );
+
+        /*
+         * AUDITOR → ASSISTANT AUDITOR
+         */
+        const auditorAssistantY =
+            auditor.bottom +
+            (assistantAuditor.top - auditor.bottom) / 2;
+
+        svg.appendChild(
+            line(
+                auditor.centerX,
+                auditor.bottom,
+                auditor.centerX,
+                auditorAssistantY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                auditor.centerX,
+                auditorAssistantY,
+                assistantAuditor.centerX,
+                auditorAssistantY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                assistantAuditor.centerX,
+                auditorAssistantY,
+                assistantAuditor.centerX,
+                assistantAuditor.top
+            )
+        );
+
+        /*
+         * PROJECT MANAGER + PRO + ECO WARRIOR
+         *
+         * These three are peers.
+         *
+         * Their shared horizontal connector remains
+         * exactly on their existing row.
+         */
+        const coordinationTop = Math.min(
+            projectManager.top,
+            pro.top,
+            ecoWarrior.top
+        );
+
+        const coordinationBranchY =
+            coordinationTop - 14;
+
+        const coordinationLeft =
+            projectManager.centerX;
+
+        const coordinationRight =
+            ecoWarrior.centerX;
+
+        /*
+         * Shared PM / PRO / ECO horizontal connector.
+         */
+        svg.appendChild(
+            line(
+                coordinationLeft,
+                coordinationBranchY,
+                coordinationRight,
+                coordinationBranchY
+            )
+        );
+
+        /*
+         * PROJECT MANAGER → shared line
+         */
+        svg.appendChild(
+            line(
+                projectManager.centerX,
+                coordinationBranchY,
+                projectManager.centerX,
+                projectManager.top
+            )
+        );
+
+        /*
+         * PRO → shared line
+         */
+        svg.appendChild(
+            line(
+                pro.centerX,
+                coordinationBranchY,
+                pro.centerX,
+                pro.top
+            )
+        );
+
+        /*
+         * ECO WARRIOR → shared line
+         */
+        svg.appendChild(
+            line(
+                ecoWarrior.centerX,
+                coordinationBranchY,
+                ecoWarrior.centerX,
+                ecoWarrior.top
+            )
+        );
+
+        /*
+         * PM / PRO / ECO → BOTH VPS
+         *
+         * The shared coordination line branches upward
+         * to both sides of the VP connector.
+         *
+         * Left branch → VP Internal
+         * Right branch → VP External
+         */
+        const leftBranchX = vpInternal.centerX;
+        const rightBranchX = vpExternal.centerX;
+
+        svg.appendChild(
+            line(
+                leftBranchX,
+                presidentVpY,
+                leftBranchX,
+                coordinationBranchY
+            )
+        );
+
+        svg.appendChild(
+            line(
+                rightBranchX,
+                presidentVpY,
+                rightBranchX,
+                coordinationBranchY
+            )
+        );
+
+        /*
+         * 2ND YEAR REPRESENTATIVE → PRO
+         */
+        if (representative) {
+            const representativeY =
+                pro.bottom +
+                (representative.top - pro.bottom) / 2;
+
+            svg.appendChild(
+                line(
+                    pro.centerX,
+                    pro.bottom,
+                    pro.centerX,
+                    representativeY
+                )
+            );
+
+            svg.appendChild(
+                line(
+                    pro.centerX,
+                    representativeY,
+                    representative.centerX,
+                    representativeY
+                )
+            );
+
+            svg.appendChild(
+                line(
+                    representative.centerX,
+                    representativeY,
+                    representative.centerX,
+                    representative.top
+                )
+            );
+        }
+    };
+
+    const redraw = () => {
+        requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    window.addEventListener("resize", redraw);
+
+    if (window.ResizeObserver) {
+        const observer = new ResizeObserver(redraw);
+        observer.observe(canvas);
+    }
+});
 </script>
