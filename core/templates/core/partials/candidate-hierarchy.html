@@ -196,6 +196,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!canvas || !svg) return;
 
+    /*
+     * =========================================================
+     * CONFIG — every adjustable knob for the connector lines
+     * =========================================================
+     *
+     * Change any value here to retune the diagram. Nothing below
+     * this block should need to be touched for simple spacing or
+     * style tweaks.
+     *
+     * `mobile` values are used automatically when the canvas is
+     * narrower than `mobileBreakpoint` (px). Any key you omit from
+     * `mobile` falls back to its `desktop` value.
+     */
+    const CONFIG = {
+        mobileBreakpoint: 640,
+
+        line: {
+            desktop: { color: "#c9a77e", width: 2 },
+            mobile: { color: "#c9a77e", width: 1.5 },
+        },
+
+        // President → VP horizontal connector.
+        // Fraction (0-1) of the gap between the president and the
+        // VP row where the horizontal line sits. 0.5 = halfway.
+        presidentVpFraction: {
+            desktop: 0.5,
+            mobile: 0.5,
+        },
+
+        // VP connector → Secretary/Treasurer/Auditor connector.
+        // Fraction (0-1) of the gap between the two rows.
+        coreOfficersFraction: {
+            desktop: 0.5,
+            mobile: 0.5,
+        },
+
+        // Secretary → Assistant Secretary, Auditor → Assistant Auditor.
+        // Fraction (0-1) of the gap between each officer and their assistant.
+        assistantFraction: {
+            desktop: 0.5,
+            mobile: 0.5,
+        },
+
+        // Secretary/Treasurer/Auditor line → Project/PRO/Eco line.
+        // How far ABOVE the Project/PRO/Eco row the shared branch
+        // line sits, capped at this many px above that row.
+        coordinationOffset: {
+            desktop: 24,
+            mobile: 16,
+        },
+
+        // Horizontal spread of the two branch lines that drop down
+        // to the Project/PRO/Eco shared line, as a fraction of the
+        // distance between the two VP nodes. Smaller = closer together.
+        coordinationBranchSpread: {
+            desktop: 0.30,
+            mobile: 0.22,
+        },
+
+        // PRO → 2nd Year Representative connector.
+        // Fraction (0-1) of the gap between PRO and the representative.
+        representativeFraction: {
+            desktop: 0.5,
+            mobile: 0.5,
+        },
+    };
+
+    const isMobile = () => canvas.getBoundingClientRect().width < CONFIG.mobileBreakpoint;
+
+    const cfg = (key) => {
+        const entry = CONFIG[key];
+        if (isMobile() && entry.mobile !== undefined) return entry.mobile;
+        return entry.desktop;
+    };
+
     const getBox = (id) => {
         const el = document.getElementById(id);
         if (!el) return null;
@@ -219,12 +294,14 @@ document.addEventListener("DOMContentLoaded", () => {
             "line"
         );
 
+        const style = isMobile() ? CONFIG.line.mobile : CONFIG.line.desktop;
+
         el.setAttribute("x1", x1);
         el.setAttribute("y1", y1);
         el.setAttribute("x2", x2);
         el.setAttribute("y2", y2);
-        el.setAttribute("stroke", "#c9a77e");
-        el.setAttribute("stroke-width", "2");
+        el.setAttribute("stroke", style.color);
+        el.setAttribute("stroke-width", style.width);
         el.setAttribute("stroke-linecap", "round");
 
         return el;
@@ -304,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const presidentVpY =
             presidentBottom +
-            (vpTop - presidentBottom) / 2;
+            (vpTop - presidentBottom) * cfg("presidentVpFraction");
 
         /*
          * President → VP horizontal line
@@ -372,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const coreBranchY =
             presidentVpY +
-            (coreTop - presidentVpY) / 2;
+            (coreTop - presidentVpY) * cfg("coreOfficersFraction");
 
         /*
          * VP line → core officers vertical connector
@@ -449,7 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const secretaryAssistantY =
             secretary.bottom +
-            (assistantSecretary.top - secretary.bottom) / 2;
+            (assistantSecretary.top - secretary.bottom) * cfg("assistantFraction");
 
         svg.appendChild(
             line(
@@ -486,7 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const auditorAssistantY =
             auditor.bottom +
-            (assistantAuditor.top - auditor.bottom) / 2;
+            (assistantAuditor.top - auditor.bottom) * cfg("assistantFraction");
 
         svg.appendChild(
             line(
@@ -537,7 +614,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const coordinationBranchY =
             coordinationTop -
             Math.min(
-                24,
+                cfg("coordinationOffset"),
                 (coordinationTop - coreBranchY) / 2
             );
 
@@ -560,7 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
          */
 
         const branchOffset =
-            vpDistance * 0.30;
+            vpDistance * cfg("coordinationBranchSpread");
 
         const leftBranchX =
             vpCenterX - branchOffset;
@@ -675,7 +752,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (representative) {
             const representativeY =
                 pro.bottom +
-                (representative.top - pro.bottom) / 2;
+                (representative.top - pro.bottom) * cfg("representativeFraction");
 
             svg.appendChild(
                 line(
@@ -706,13 +783,43 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    /*
+     * =========================================================
+     * MOBILE-FRIENDLY REDRAW HANDLING
+     * =========================================================
+     *
+     * - Debounced so rapid resize/orientation events (common on
+     *   mobile browsers when the address bar shows/hides) don't
+     *   trigger a redraw storm.
+     * - Listens for orientationchange explicitly, since some
+     *   mobile browsers fire it slightly before the DOM has
+     *   settled into its new layout, so we redraw twice: once
+     *   immediately and once after a short delay.
+     * - ResizeObserver covers container size changes that aren't
+     *   tied to the window itself (e.g. sidebar toggles).
+     */
+
+    let redrawTimeout = null;
+
     const redraw = () => {
-        requestAnimationFrame(draw);
+        if (redrawTimeout) clearTimeout(redrawTimeout);
+        redrawTimeout = setTimeout(() => {
+            requestAnimationFrame(draw);
+        }, 100);
     };
 
     draw();
 
-    window.addEventListener("resize", redraw);
+    window.addEventListener("resize", redraw, { passive: true });
+
+    window.addEventListener(
+        "orientationchange",
+        () => {
+            requestAnimationFrame(draw);
+            setTimeout(() => requestAnimationFrame(draw), 300);
+        },
+        { passive: true }
+    );
 
     if (window.ResizeObserver) {
         const observer = new ResizeObserver(redraw);
