@@ -374,6 +374,10 @@ document.addEventListener("DOMContentLoaded", () => {
             presidentVpY +
             (coreTop - presidentVpY) / 2;
 
+        /*
+         * VP line → core officers vertical connector
+         */
+
         svg.appendChild(
             line(
                 president.centerX,
@@ -386,7 +390,7 @@ document.addEventListener("DOMContentLoaded", () => {
         /*
          * SECRETARY / TREASURER / AUDITOR
          *
-         * Shared horizontal line.
+         * Shared horizontal connector.
          */
 
         svg.appendChild(
@@ -398,6 +402,10 @@ document.addEventListener("DOMContentLoaded", () => {
             )
         );
 
+        /*
+         * Secretary → shared horizontal connector
+         */
+
         svg.appendChild(
             line(
                 secretary.centerX,
@@ -407,6 +415,10 @@ document.addEventListener("DOMContentLoaded", () => {
             )
         );
 
+        /*
+         * Treasurer → shared horizontal connector
+         */
+
         svg.appendChild(
             line(
                 treasurer.centerX,
@@ -415,6 +427,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 treasurer.top
             )
         );
+
+        /*
+         * Auditor → shared horizontal connector
+         */
 
         svg.appendChild(
             line(
@@ -501,12 +517,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /*
          * =========================================================
-         * VP LINE → PROJECT / PRO / ECO
+         * SECRETARY/TREASURER/AUDITOR LINE → PROJECT / PRO / ECO
          * =========================================================
          *
-         * Two vertical branches descend from the VP horizontal
-         * line and connect directly to the Project / PRO / Eco
-         * horizontal connector.
+         * The Project Manager, PRO, and Eco Warrior all connect
+         * to ONE shared horizontal line.
+         *
+         * Two vertical branches descend from the Secretary /
+         * Treasurer / Auditor connector (coreBranchY) and meet
+         * this shared Project / PRO / Eco line.
          */
 
         const coordinationTop = Math.min(
@@ -519,25 +538,25 @@ document.addEventListener("DOMContentLoaded", () => {
             coordinationTop -
             Math.min(
                 24,
-                (coordinationTop - presidentVpY) / 2
+                (coordinationTop - coreBranchY) / 2
             );
 
         /*
-         * Center between the two VP cards.
+         * Center between the two VPs.
          */
 
         const vpCenterX =
             (vpInternal.centerX + vpExternal.centerX) / 2;
 
         /*
-         * Distance between the two VP cards.
+         * Distance between the two VPs.
          */
 
         const vpDistance =
             vpExternal.centerX - vpInternal.centerX;
 
         /*
-         * Keep the two vertical branches closer together.
+         * Position the two descending branches closer together.
          */
 
         const branchOffset =
@@ -551,18 +570,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /*
          * =========================================================
-         * LEFT VERTICAL BRANCH
+         * LEFT CORE-OFFICERS BRANCH → PROJECT / PRO / ECO LINE
          * =========================================================
-         *
-         * Starts from the VP horizontal connector and continues
-         * all the way down to the Project / PRO / Eco horizontal
-         * connector.
          */
 
         svg.appendChild(
             line(
                 leftBranchX,
-                presidentVpY,
+                coreBranchY,
                 leftBranchX,
                 coordinationBranchY
             )
@@ -570,18 +585,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /*
          * =========================================================
-         * RIGHT VERTICAL BRANCH
+         * RIGHT CORE-OFFICERS BRANCH → PROJECT / PRO / ECO LINE
          * =========================================================
-         *
-         * Starts from the VP horizontal connector and continues
-         * all the way down to the Project / PRO / Eco horizontal
-         * connector.
          */
 
         svg.appendChild(
             line(
                 rightBranchX,
-                presidentVpY,
+                coreBranchY,
                 rightBranchX,
                 coordinationBranchY
             )
@@ -589,10 +600,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /*
          * =========================================================
-         * PROJECT / PRO / ECO HORIZONTAL CONNECTOR
+         * PROJECT / PRO / ECO SHARED HORIZONTAL CONNECTOR
          * =========================================================
          *
-         * Both vertical branches terminate directly on this line.
+         * One continuous horizontal line connects all three
+         * positions:
+         *
+         * Project Manager ───── PRO ───── Eco Warrior
+         *
+         * The line starts at Project Manager and ends at
+         * Eco Warrior.
          */
 
         svg.appendChild(
@@ -605,7 +622,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * PROJECT MANAGER → shared horizontal line
+         * =========================================================
+         * PROJECT MANAGER → SHARED LINE
+         * =========================================================
          */
 
         svg.appendChild(
@@ -618,7 +637,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * PRO → shared horizontal line
+         * =========================================================
+         * PRO → SHARED LINE
+         * =========================================================
          */
 
         svg.appendChild(
@@ -631,7 +652,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         /*
-         * ECO WARRIOR → shared horizontal line
+         * =========================================================
+         * ECO WARRIOR → SHARED LINE
+         * =========================================================
          */
 
         svg.appendChild(
