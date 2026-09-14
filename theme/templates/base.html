@@ -1,0 +1,30 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="icon"
+        type="image/png"
+        href="{% static 'theme/images/emblem.png' %}"
+    >
+    <title>{% block title %}VARIANZA{% endblock %}</title>
+
+    {% tailwind_css %}
+</head>
+
+<body class="flex min-h-screen flex-col bg-[#fffaf2] text-[#4a2d1c] antialiased">
+
+    {% include "partials/header.html" %}
+
+    <main class="flex-1">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+
+</body>
+</html>

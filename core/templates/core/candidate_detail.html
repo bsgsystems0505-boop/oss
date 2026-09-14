@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{ candidate.name }} · VARIANZA
+{% endblock %}
+
+{% block content %}
+
+<section class="border-b border-[#d8c3a8] bg-[#fffaf2]">
+    <div class="mx-auto max-w-5xl px-5 py-8 sm:px-6 sm:py-12">
+
+        <a
+            href="{% url 'core:home' %}"
+            class="text-sm font-semibold text-[#8a5a36] hover:text-[#3f2618]"
+        >
+            ← Back to Candidate Hierarchy
+        </a>
+
+        <div class="mt-6 flex items-center gap-4 sm:gap-6">
+
+            {% if candidate.photo %}
+                <img
+                    src="{% static candidate.photo %}"
+                    alt="{{ candidate.name }}"
+                    class="h-20 w-20 shrink-0 rounded-full object-cover ring-4 ring-[#eadcc9] sm:h-28 sm:w-28"
+                >
+            {% endif %}
+
+            <div class="min-w-0">
+                <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8a5a36] sm:text-sm">
+                    {{ candidate.get_position_display }}
+                </p>
+
+                <h1 class="mt-1 break-words text-2xl font-black tracking-tight text-[#3f2618] sm:text-4xl">
+                    {{ candidate.name }}
+                </h1>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="bg-[#f3eadc]">
+    <div class="mx-auto max-w-5xl px-5 py-8 sm:px-6 sm:py-12">
+
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8a5a36]">
+            Credentials
+        </p>
+
+        <h2 class="mt-1 text-2xl font-black tracking-tight text-[#3f2618] sm:text-3xl">
+            Academic &amp; Leadership Background
+        </h2>
+
+        {% if credentials %}
+
+            <div class="mt-7 space-y-6">
+
+                {% for group_name, group_credentials in credential_groups %}
+
+                    {% if group_credentials %}
+
+                        <div>
+                            <h3 class="text-sm font-bold uppercase tracking-[0.12em] text-[#8a5a36]">
+                                {{ group_name }}
+                            </h3>
+
+                            <div class="mt-2 space-y-2">
+
+                                {% for credential in group_credentials %}
+
+                                    <article class="rounded-xl border border-[#d8c3a8] bg-[#fffaf2] px-4 py-3 sm:px-5">
+
+                                        <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+
+                                            <div class="min-w-0">
+                                                <h4 class="break-words text-sm font-bold leading-5 text-[#3f2618] sm:text-base">
+                                                    {{ credential.title }}
+                                                </h4>
+
+                                                {% if credential.description %}
+                                                    <p class="mt-1 break-words text-xs leading-5 text-[#765c48] sm:text-sm">
+                                                        {{ credential.description }}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+
+                                            {% if credential.category %}
+                                                <p class="shrink-0 text-[10px] font-bold uppercase tracking-[0.1em] text-[#8a5a36] sm:text-xs">
+                                                    {{ credential.category }}
+                                                </p>
+                                            {% endif %}
+
+                                        </div>
+
+                                    </article>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="mt-6 text-sm text-[#765c48]">
+                No credentials have been added yet.
+            </p>
+
+        {% endif %}
+
+    </div>
+</section>
+
+<section class="bg-[#fffaf2]">
+    <div class="mx-auto max-w-5xl px-5 py-8 sm:px-6 sm:py-12">
+
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#8a5a36]">
+            Candidate Platform
+        </p>
+
+        <h2 class="mt-1 text-2xl font-black tracking-tight text-[#3f2618] sm:text-3xl">
+            {{ candidate.get_position_display }} Platforms
+        </h2>
+
+        <div class="mt-6 space-y-3">
+
+            {% for platform in candidate.platforms.all %}
+
+                <article class="rounded-xl border border-[#d8c3a8] bg-[#f3eadc] px-4 py-4 sm:px-5">
+
+                    <div class="flex items-start gap-3">
+
+                        <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#8a5a36] text-[11px] font-bold text-[#fffaf2]">
+                            {{ forloop.counter }}
+                        </div>
+
+                        <div class="min-w-0">
+
+                            <h3 class="break-words text-sm font-bold text-[#3f2618] sm:text-base">
+                                {{ platform.title }}
+                            </h3>
+
+                            {% if platform.description %}
+                                <p class="mt-1.5 break-words text-xs leading-5 text-[#765c48] sm:text-sm sm:leading-6">
+                                    {{ platform.description }}
+                                </p>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <p class="text-sm text-[#765c48]">
+                    No platforms have been added yet.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
