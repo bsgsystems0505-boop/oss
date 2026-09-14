@@ -299,7 +299,7 @@
         </div>
 
 
-        <!-- SECRETARY / AUDITOR → SUB-OFFICERS -->
+        <!-- SECRETARY / AUDITOR → SUB-OFFICERS (TREASURER passes through) -->
         <div class="h-10 sm:h-14"></div>
 
 
@@ -539,21 +539,23 @@
         </div>
 
 
-        <!-- PRO → REPRESENTATIVE -->
+        <!-- PM / PRO / ECO → YEAR REPRESENTATIVES -->
         <div class="h-10 sm:h-14"></div>
 
 
         <div
-            id="node-representative"
-            class="relative z-10 grid grid-cols-3 gap-2 sm:gap-8"
+            id="node-representatives"
+            class="relative z-10 grid grid-cols-4 gap-2 sm:gap-6"
         >
 
-            <div></div>
-
-            <div class="flex justify-center">
-                {% with candidate=candidate_by_position.representative %}
+            <!-- 1ST YEAR REPRESENTATIVE -->
+            <div
+                id="node-representative-1st"
+                class="flex justify-center"
+            >
+                {% with candidate=candidate_by_position.representative_1st_year %}
                     {% if candidate %}
-                        
+                        <a
                             href="{{ candidate.get_absolute_url }}"
                             class="group block rounded-xl outline-none"
                             aria-label="View {{ candidate.name }}'s credentials and platforms"
@@ -571,7 +573,7 @@
                                 </div>
 
                                 <div
-                                    class="mt-2 max-w-[120px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[170px] sm:px-2 sm:py-2"
+                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
                                 >
                                     <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
                                         {{ candidate.name }}
@@ -588,7 +590,134 @@
                 {% endwith %}
             </div>
 
-            <div></div>
+
+            <!-- 2ND YEAR REPRESENTATIVE -->
+            <div
+                id="node-representative-2nd"
+                class="flex justify-center"
+            >
+                {% with candidate=candidate_by_position.representative_2nd_year %}
+                    {% if candidate %}
+                        <a
+                            href="{{ candidate.get_absolute_url }}"
+                            class="group block rounded-xl outline-none"
+                            aria-label="View {{ candidate.name }}'s credentials and platforms"
+                        >
+                            <div class="flex flex-col items-center">
+
+                                <div
+                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                                >
+                                    <img
+                                        src="{% static candidate.photo %}"
+                                        alt="{{ candidate.name }}"
+                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                    >
+                                </div>
+
+                                <div
+                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
+                                >
+                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                        {{ candidate.name }}
+                                    </p>
+
+                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
+                                        {{ candidate.position }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+
+            <!-- 3RD YEAR REPRESENTATIVE -->
+            <div
+                id="node-representative-3rd"
+                class="flex justify-center"
+            >
+                {% with candidate=candidate_by_position.representative_3rd_year %}
+                    {% if candidate %}
+                        <a
+                            href="{{ candidate.get_absolute_url }}"
+                            class="group block rounded-xl outline-none"
+                            aria-label="View {{ candidate.name }}'s credentials and platforms"
+                        >
+                            <div class="flex flex-col items-center">
+
+                                <div
+                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                                >
+                                    <img
+                                        src="{% static candidate.photo %}"
+                                        alt="{{ candidate.name }}"
+                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                    >
+                                </div>
+
+                                <div
+                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
+                                >
+                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                        {{ candidate.name }}
+                                    </p>
+
+                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
+                                        {{ candidate.position }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+
+            <!-- 4TH YEAR REPRESENTATIVE -->
+            <div
+                id="node-representative-4th"
+                class="flex justify-center"
+            >
+                {% with candidate=candidate_by_position.representative_4th_year %}
+                    {% if candidate %}
+                        <a
+                            href="{{ candidate.get_absolute_url }}"
+                            class="group block rounded-xl outline-none"
+                            aria-label="View {{ candidate.name }}'s credentials and platforms"
+                        >
+                            <div class="flex flex-col items-center">
+
+                                <div
+                                    class="overflow-hidden rounded-full ring-2 ring-[#eadcc9] transition duration-200 group-hover:-translate-y-1 group-hover:ring-[#c9a77e]"
+                                >
+                                    <img
+                                        src="{% static candidate.photo %}"
+                                        alt="{{ candidate.name }}"
+                                        class="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                    >
+                                </div>
+
+                                <div
+                                    class="mt-2 max-w-[100px] rounded-lg border border-[#d8c3a8] bg-[#fffaf2] px-1.5 py-1.5 text-center transition duration-200 group-hover:border-[#b88b5a] group-hover:bg-[#fffdf8] sm:max-w-[140px] sm:px-2 sm:py-2"
+                                >
+                                    <p class="break-words text-[8px] font-bold uppercase leading-tight text-[#3f2618] sm:text-[11px]">
+                                        {{ candidate.name }}
+                                    </p>
+
+                                    <p class="mt-1 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8a5a36] sm:text-[10px]">
+                                        {{ candidate.position }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endwith %}
+            </div>
 
         </div>
 
@@ -771,7 +900,22 @@
 
             addConnector(
                 "node-pro",
-                "node-representative"
+                "node-representative-1st"
+            );
+
+            addConnector(
+                "node-pro",
+                "node-representative-2nd"
+            );
+
+            addConnector(
+                "node-pro",
+                "node-representative-3rd"
+            );
+
+            addConnector(
+                "node-pro",
+                "node-representative-4th"
             );
         }
 
